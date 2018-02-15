@@ -1,0 +1,20 @@
+{
+  "name": "lab-trevor",
+  "version": "1.0.0",
+  "description": "Lab 4",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint"
+  },
+  "author": "Trevor-Dobson",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^4.17.0",
+    "test": "^0.6.0"
+  }
+}
