@@ -3,18 +3,25 @@
 const fs = require('fs');
 
 class Transform {
-  constructor(inFile, outFile, transform) {
+  constructor(inFile, outFile) {
     this.inFile = inFile;
     this.outFile = outFile;
   }
   toBinary(callback) {
-    fs.readFile(this.inFile, (err, buffer) => {
-      if (err) {
-        console.error(err);
-        process.exit();
-      }
-      callback(buffer);
-    })
+    if (fs.existsSync(this.inFile) === false) {
+      console.error('please include a valid source');
+      callback(new Error('please include a valid source'));
+    } else {
+      fs.readFile(this.inFile, (err, buffer) => {
+        if (err) {
+          console.error(err);
+          callback(err);
+          process.exit();
+        } else {
+          callback(buffer);
+        }
+      })
+    }
   }
   grayWallpaper() {
     this.toBinary(buffer => {
@@ -162,14 +169,12 @@ class Transform {
   grayscale() {
     this.toBinary(buffer => {
       let newBuffer = buffer;
-      for (var i = 41; i < buffer.length; i = i + 5) {
-        let newValue = Math.floor((buffer[i] + buffer[i + 1] + buffer[i + 2] + buffer[i + 3] + buffer[i + 4]) / 5);
+      for (var i = 41; i < buffer.length; i = i + 4) {
+        let newValue = Math.floor((buffer[i] + buffer[i + 1] + buffer[i + 2] + buffer[i + 2]) / 4);
         buffer[i] = newValue;
         buffer[i + 1] = newValue;
         buffer[i + 2] = newValue;
         buffer[i + 3] = newValue;
-        buffer[i + 4] = newValue;
-        buffer[i + 5] = newValue;
       }
       fs.writeFile(this.outFile, newBuffer, function(err) {
         if (err) {
@@ -182,22 +187,4 @@ class Transform {
   }
 }
 
-// runAll() {
-//   for (let i = 0; i < 9; i++) {
-//     let image = new Transform('../test/assets/salad3.bmp', '../test/assets/salad1.bmp');
-//   }
-// }
-
-// let image = new Transform('../test/assets/salad3.bmp', '../test/assets/salad1.bmp');
-
-// image.grayWallpaper();
-
-//grayWallpaper
-//dots
-//colorize
-//redBlue
-//cartoon
-//retro
-//lines
-//vintage
-//grayscale
+module.exports = Transform;
