@@ -7,7 +7,8 @@ const fs = require('fs')
 
 let testImg = '../test/blob.bmp';
 
-function transformer(img){
+
+function transformer(img, howTransform, output){
     fs.readFile(img, (err, data) => {
         if(err) return console.log(err)
 
@@ -17,20 +18,37 @@ function transformer(img){
                 colorTable : data.slice(54,1077),
                 pixelArr : data.slice(1078), 
             }
-            
-        for(let i = 0; i < imgData.colorTable.length; i++){
-            if(imgData.colorTable[i] % 2 !== 0 ){
-                imgData.colorTable[i] = 0;
-            }
-        }
-        console.log(imgData)
-        fs.writeFile('../test/output.bmp',data, (err, data) => {
+        howTransform(imgData);
+        fs.writeFile(output,data, (err, data) => {
             if(err) return console.log(err)
         
         })
      })
 }
- transformer(testImg)
+
+let colorTransformer = function(imgData){   
+    for(let i = 0; i < imgData.colorTable.length; i++){
+        if(imgData.colorTable[i] % 2 !== 0 ){
+            imgData.colorTable[i] = 0;
+        }
+    }
+    
+}
+let colorTransformer2 = function(imgData){   
+    for(let i = 0; i < imgData.colorTable.length; i++){
+        if(imgData.colorTable[i] % 2 !== 0 ){
+            imgData.colorTable[i] = 90;
+        }
+    }
+    
+}
+let inverter = function(imgData){
+    for(let i = 0; i < imgData.pixelArr.length; i++){
+    imgData.pixelArr[imgData.pixelArr.length - i -1] = imgData.pixelArr[i];
+    }
+}
+
+ transformer(testImg,inverter, '../test/output.bmp');
 // let newArr = [];
 
 //         let inverter = function(data){
