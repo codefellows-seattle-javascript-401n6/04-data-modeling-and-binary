@@ -5,38 +5,29 @@ if(process.argv.includes('hello')) console.log('world')
 
 const fs = require('fs')
 
-let size;
-let type;
 let testImg = '../test/blob.bmp';
 
 function transformer(img){
     fs.readFile(img, (err, data) => {
         if(err) return console.log(err)
 
-        const header = {
-                headerDetail : {
-                    signature: data.slice(0,2).toString(),
-                    fileSize: data.readUInt16LE(2),
-                    offeset: data.readUInt16LE(10)
-                },
-                dibHeader : {
-                    dibSize: data.readUInt16LE(14),
-                    imgWidth: data.readUInt16LE(18),
-                    imgHeight: data.readUInt16LE(22),
-                    bitsPerPixel: data.readUInt8(28),
-                },
-                colorTable : {
-
-                },
-            }
         const imgData = {
-                    numPixels: data.readUInt16LE(18) * data.readUInt16LE(22),
-                    pixelData: data.slice(data.readUInt8(10)/ 8, data.readUInt16LE(18) * data.readUInt16LE(22) + data.readUIntLE(data.readUInt8(10)/ 8))
+                headerDetail : data.slice(0,13),
+                dibHeader : data.slice(14,53),
+                colorTable : data.slice(54,1077),
+                pixelArr : data.slice(1078), 
             }
+            
+        for(let i = 0; i < imgData.colorTable.length; i++){
+            if(imgData.colorTable[i] % 2 !== 0 ){
+                imgData.colorTable[i] = 0;
+            }
+        }
+        console.log(imgData)
+        fs.writeFile('../test/output.bmp',data, (err, data) => {
+            if(err) return console.log(err)
         
-            console.log(header.headerDetail)
-            console.log(header.dibHeader)
-            console.log(imgData)
+        })
      })
 }
  transformer(testImg)
