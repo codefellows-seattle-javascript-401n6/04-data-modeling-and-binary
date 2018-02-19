@@ -3,6 +3,15 @@
 const fs = require('fs');
 
 const transform = {
+  
+  writeFile: (outputFilePath, newBuffer, err) => {
+    fs.writeFile(outputFilePath, newBuffer, err => {
+      if (err) throw err;
+      console.log(`The file has been saved at ${outputFilePath}`);
+      return 'Success';
+    });
+  },
+
   invert: (err, outputFilePath, bitmap, buffer) => {
     if (err) {
       throw err;
@@ -15,10 +24,7 @@ const transform = {
 
     let newBuffer = buffer.slice(0, bitmap.offsetToPixelArray) + result;
 
-    fs.writeFile(outputFilePath, newBuffer, err => {
-      if (err) return console.log(err);
-      console.log(`The file has been saved at ${outputFilePath}`);
-    });
+    transform.writeFile(outputFilePath, newBuffer, err);
   },
 
   greyScale: (err, outputFilePath, bitmap, buffer) => {
@@ -33,10 +39,7 @@ const transform = {
 
     let newBuffer = buffer.slice(0, bitmap.offsetToPixelArray) + result;
 
-    fs.writeFile(outputFilePath, newBuffer, err => {
-      if (err) return console.log(err);
-      console.log(`The file has been saved at ${outputFilePath}`);
-    });
+    transform.writeFile(outputFilePath, newBuffer, err); 
   },
 
   vintage: (err, outputFilePath, bitmap, buffer) => {
@@ -51,13 +54,10 @@ const transform = {
 
     let newBuffer = buffer.slice(0, bitmap.offsetToPixelArray) + result;
 
-    fs.writeFile(outputFilePath, newBuffer, err => {
-      if (err) return console.log(err);
-      console.log(`The file has been saved at ${outputFilePath}`);
-    });
+    transform.writeFile(outputFilePath, newBuffer, err);
   },
 
-  something: (err, outputFilePath, bitmap, buffer) => {
+  pixelate: (err, outputFilePath, bitmap, buffer) => {
     if (err) {
       throw err;
     }
@@ -69,10 +69,7 @@ const transform = {
 
     let newBuffer = buffer.slice(0, bitmap.offsetToPixelArray) + result;
 
-    fs.writeFile(outputFilePath, newBuffer, err => {
-      if (err) return console.log(err);
-      console.log(`The file has been saved at ${outputFilePath}`);
-    });
+    transform.writeFile(outputFilePath, newBuffer, err);
   }
 };
 
