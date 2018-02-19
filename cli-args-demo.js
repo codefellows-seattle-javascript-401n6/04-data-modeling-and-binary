@@ -8,6 +8,9 @@
 // Argument #2 hello
 // Argument #3 /perhaps/a/path/to/some/file
 
-for (let i = 0; i < process.argv.length; i++) {
+
+
+
+for (let i = 3; i < process.argv.length; i++) {
   console.log(`Argument #${i}`, process.argv[i])
 }
