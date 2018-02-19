@@ -1,8 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-// const trasnform = require('./lib/transform.js');
-//provides access to node on command line interface (CLI)
+
 if (process.argv.includes('hello')) console.log('world');
 
 let inputFilePath = `${__dirname}/test/assets/blob.bmp`;
@@ -11,8 +10,7 @@ let outputFilePath = `${__dirname}/test/assets/newAssets/newBlob.bmp`;
 
 function BitmapTransformer(inputFilePath, outputFilePath, transform) {
 
-
-    fs.readFile(`${__dirname}/test/assets/blob.bmp`, (err, buffer) => {
+    fs.readFile(`${__dirname}/test/assets/penguin.bmp`, (err, buffer) => {
         if (err) return console.error(err);
 
         const bitmap = {
