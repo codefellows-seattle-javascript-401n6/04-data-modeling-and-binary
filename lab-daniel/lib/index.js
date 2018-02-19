@@ -4,19 +4,23 @@ const fs = require('fs');
 // 1st step: READ FILE.
 fs.readFile('../assets/download.bmp', (err, data) => {
     if (err) return console.log('error');
-    const bitmapHeader = {
+    const bitmap = {
         header: {
             type: data.slice(0, 2).toString(),
             fileSize: data.slice(2, 6).readUInt16LE(),
-            pixelOffset: data.slice(10, 14).readUInt16LE()
+            pixelOffset: data.slice(10, 14).readUInt32LE(),
+            pixelArray: data.slice(this.pixelOffset),
         },
         dibHeader: {
             headerSize: data.slice(14, 18).readUInt32LE(),
             width: data.slice(18, 22).readUInt32LE(),
-            height: data.slice(22, 26).readUInt32LE()
-        }
+            height: data.slice(22, 26).readUInt32LE(),
+            color: data.slice(50, 54).readUInt32LE()
+        },
+        pixelArray: data.slice(10, 14).readUInt32LE(),
     };
-    console.log(bitmapHeader);
+    console.log(bitmap);
+
 
 
     //SIGNATURE: 42
