@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const fs = require('fs');
 // const trasnform = require('./lib/transform.js');
@@ -12,7 +12,7 @@ let outputFilePath = `${__dirname}/test/assets/newAssets/newBlob.bmp`;
 function BitmapTransformer(inputFilePath, outputFilePath, transform) {
 
 
-    fs.readFile(`${__dirname}/test/assets/penguin.bmp`, (err, buffer) => {
+    fs.readFile(`${__dirname}/test/assets/blob.bmp`, (err, buffer) => {
         if (err) return console.error(err);
 
         const bitmap = {
@@ -44,17 +44,6 @@ function BitmapTransformer(inputFilePath, outputFilePath, transform) {
                     let newBuffer = buffer.slice(0, bitmap.offsetToPixelArray) + mirrorImage;
                     return newBuffer;
                 }
-                // if (transform === 'grayScale') {
-                //     let mirrorImage = [];
-                //     console.log('bitmap pixel array=', bitmap.pixelArray.length);
-                //     for (let i = bitmap.pixelArray.length - 1; i > 0; i--) {
-                //         mirrorImage.push(bitmap.pixelArray[i]);
-                //     }
-                //     console.log('buffer=', buffer);
-
-                //     let newBuffer = buffer.slice(0, bitmap.offsetToPixelArray) + mirrorImage;
-                //     return newBuffer;
-                // }
             }
         }
         let newBuffer = mirrorTransform(transform);
@@ -66,5 +55,5 @@ function BitmapTransformer(inputFilePath, outputFilePath, transform) {
 }
 BitmapTransformer(inputFilePath, outputFilePath, transform);
 
-// module.exports = {};
-// module.exports.mirrorTransform = mirrorTransform;
+module.exports = {};
+module.exports.BitmapTransformer = BitmapTransformer;
