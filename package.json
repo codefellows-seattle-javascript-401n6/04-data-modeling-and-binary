@@ -1,0 +1,19 @@
+{
+  "name": "04-data-modeling-and-binary",
+  "version": "1.0.0",
+  "description": "lab 4",
+  "main": "cli-args-demo.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/splitpeasoup/04-data-modeling-and-binary.git"
+  },
+  "author": "caitlin sweeney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/splitpeasoup/04-data-modeling-and-binary/issues"
+  },
+  "homepage": "https://github.com/splitpeasoup/04-data-modeling-and-binary#readme"
+}
