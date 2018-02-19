@@ -1,0 +1,17 @@
+{
+  "name": "lab-daniel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Daniel Pillay",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.17.0"
+  }
+}
