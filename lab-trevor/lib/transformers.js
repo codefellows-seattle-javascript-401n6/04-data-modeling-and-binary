@@ -26,9 +26,16 @@ Transformers.colorTransformer = function(imgData){
    console.log('transformer') 
 }
 Transformers.inverter = function(imgData){
+    let newArr = [];
+    let el;
     for(let i = 0; i < imgData.pixelArr.length; i++){
-    imgData.pixelArr[imgData.pixelArr.length - i -1] = imgData.pixelArr[i];
+    let el = imgData.pixelArr[imgData.pixelArr.length - i -1]
+    newArr[imgData.pixelArr.length - i -1] = imgData.pixelArr[i];
     }
+    for(let j = 0; j < newArr.length; j++){
+        imgData.pixelArr[j] = newArr[j];
+    }
+    
     console.log('inverter')
 }
 
